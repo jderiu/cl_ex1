@@ -1,0 +1,110 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[headings]{fullpage}
+
+\usepackage{ucs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{paralist}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{}
+\pagestyle{fancy}
+\fancyhf{}
+
+\lstset{
+  language=Python,
+  basicstyle = \small\ttfamily,
+  keywordstyle = \color{blue},
+  commentstyle = \itshape\color{red},
+  stringstyle = \color{gray},
+%  otherkeywords = {>>>},
+  columns = flexible,
+  showstringspaces = false,
+  mathescape = false,
+  inputencoding = utf8x,
+  extendedchars = \true
+}
+
+\newcommand{\punkte}[1]{(\emph{#1 p})}
+
+\newcommand{\argmax}{\operatornamewithlimits{argmax}} 
+\newcommand{\argmin}{\operatornamewithlimits{argmin}} 
+
+\fancyhead[L]{\small Maschinelle Lernverfahren für die Sprachtechnologie (FS 18)\\Jan Deriu}
+\fancyhead[R]{\small 5. März 2018\\Institut für Computerlinguistik, UZH}
+
+\title{Übungen 2: Supervised Learning}
+%\author{Aufgabenstellung: Simon \texttt{<simon.clematide@cl.uzh.ch>} }
+\date{\textbf{Abgabedatum} Sonntag, 1. April 2018, 13:00h \textsc{mez}
+}
+\begin{document}
+\maketitle
+
+\section*{Setup}
+Installiere Anaconda für Python 3.6 wie auf der Web-Site\footnote{https://www.anaconda.com/download/} beschrieben. Um die benötigten Packages zu installieren, führe im \emph{Terminal} oder in der \emph{Eingabeaufforderung} folgenden Befehl aus: 
+\begin{lstlisting}[keepspaces=true,basicstyle=\ttfamily\footnotesize,language={}]
+conda install nb_conda
+conda env create -f ki2_fs2018_env.yml
+\end{lstlisting}
+Um die Daten nutzen zu können, müssen wir diese über das NLTK-Toolkit herunterladen. Führe dazu folgende Befehle aus:
+\begin{lstlisting}[keepspaces=true,basicstyle=\ttfamily\footnotesize,language={}]
+$ python
+>>> import nltk
+>>> nltk.download("names")
+>>> nltk.download("europarl_raw")
+\end{lstlisting}
+Um das Notebook zu starten gehe im Terminal zum Pfad in dem das \emph{Language Classification.ipynb} und das \emph{Sklearn Intro.ipynb} Notebook gespeichert sind und führe folgenden Befehl aus:
+\begin{lstlisting}[keepspaces=true,basicstyle=\ttfamily\footnotesize,language={}]
+jupyter notebook
+\end{lstlisting}
+
+\section{Toxic Comment Classification Challenge}
+In dieser Aufgabe werden wir einen Hate-Speech Klassifikator bauen. Dafür verwenden wir die Kaggle-Daten\footnote{https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data}. Der Datenatz besteht aus Wikipedia Kommentaren, die mit verschiedenen binären Labels versehen sind. Die Labels sind: Toxic, Severe Toxic, Obscene, Threat, Insult, und Identity Hate.
+
+Das Ziel dieser Übung ist es, die Supervised Learning Techniken auf diese Daten anzuwenden. Als Metrik werden wir den F1-Score auf der Toxic Klasse verwenden. Das bedeutet:
+\begin{lstlisting}[keepspaces=true,basicstyle=\ttfamily\footnotesize,language={}]
+from sklearn.metrics import f1_score
+f1_score(y_true, y_pred, average='binary', pos_label=1)
+\end{lstlisting}
+
+Dieser Datensatz ist stark unbalanciert, dh ca 90\% der Daten sind nicht Toxic. Beachtet, dass einige Klassifikatoren sehr sensibel darauf reagieren und man etwas \emph{class balancing} betreiben muss.
+
+\subsection{Verstehen der Codevorlage}
+%\punkte{5}
+\begin{enumerate}
+\item In den Unterlagen findet ihr das Notebook \texttt{Toxic Comment Classification Challenge.ipynb}. Dort findet ihr eine einfache Baseline auf der ihr aufbauen werdet.
+\item Falls ihr \lstinline!gensim! nicht kennt, studiert die Dokumentation \footnote{\url{https://radimrehurek.com/gensim/}}. 
+\item Für Wordembeddings gibt es sehr viel Auswahl, im Code werden die GloVe embeddings verwendet mit 25 dimensionen. Für mehr Embeddings könnt ihr Word2Vec\footnote{https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit}, GloVe\footnote{https://nlp.stanford.edu/projects/glove/} oder FastText\footnote{https://github.com/facebookresearch/fastText/blob/master/pretrained-vectors.md} anschauen.
+\end{enumerate}
+
+\subsection{Aufgabe}
+Viele Tasks im Maschinellen Lernen finden im Rahmen eines sogenannten \emph{shared task} statt. Dabei wird ein Datensatz veröffentlicht und ein Wettbewerb ausgeschrieben, wer den besten score auf dem Datensatz erzielt. Solche Tasks fördern die Forschung auf einem Gebiet. 
+Für diese Aufgabe werden wir einen mini-shared-task durchführen. Wir werden uns auf das \emph{Toxic} Label fokussieren. Das Ziel ist es den F1-Score zu maximieren. Dazu könnt ihr:
+\begin{itemize}
+\item Neue Features entwickeln: TF-IDF, andere Word Embeddings, neue Word Embeddings trainieren, nach Wortlisten suchen, etc..
+\item Modelle testen: Die Sklean library duchgehen und den Classifier finden, der am besten Funktioniert.
+\item Ensembing: mehrere Modelle trainieren und anschliessend deren Output kombinieren.
+\item Testet eure eigenen coolen Ideen :)
+\end{itemize}
+
+\section{Abgabe}
+\begin{itemize}
+\item Als Abgabe erwarten wir einen kurzen Bericht über euer System: welche Features habt ihr verwendet, welche Modelle, etc. Es soll nachvollziehrbar sein, dh jemand sollte in der Lage sein den Bericht zu lesen und euer System nachzubauen. 
+\item Das ausgefüllte Testset, damit wir herausfinden können wer das beste System hat. Benutzt dafür den vorgegebenen Code, welches ein CSV File generiert. Das CSV File besteht aus: \emph{Id, text, predicted label}.
+\item Die Abgabe erfolg über ein Zip File, wo die beiden oben genannten Datein enthalten sind. Stellt sicher, dass ihr in der Abgabe die Namen und Kürzel aller Teammitglieder reinschreibt.
+\end{itemize}
+\section{Feedback}
+Bitte melde kurz zurück, welche Aufgaben du hilfreich und welche du nicht hilfreich fandest, um dein Lernen zu unterstützen.
+
+\hfil Viel Spass und Erfolg beim Programmieren!
+\end{document}
