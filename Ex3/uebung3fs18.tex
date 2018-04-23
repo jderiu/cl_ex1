@@ -59,22 +59,26 @@ In dieser Aufgabe werden wir einen Sequence Tagger bauen, der Named Entities in 
 \begin{enumerate}
 \item In den Unterlagen findet ihr das Notebook \texttt{CRF with Sklearn.ipynb}. Dort findet ihr eine einfache Baseline auf der ihr aufbauen könnt. In der Baseline verwenden wir die \lstinline!sklearn-crfsuite!, studiert die Dokumentation \footnote{\url{https://sklearn-crfsuite.readthedocs.io/en/latest/}}. 
 \item Ihr dürft auch andere CRF libraries verwenden, falls euch das einfacher fällt. Ein Beispiel wäre Wapiti\footnote{https://wapiti.limsi.fr/}.
+\item Wir stellen euch die Features eines Brown-Clusterings\footnote{http://www.aclweb.org/anthology/R15-1016} zur Verfügung, welches auf dem deutschen Wikipedia trainiert wurde.
 \end{enumerate}
 
+
 \subsection{Aufgabe}
-In dieser Aufgabe geht es darum Features für das Sequence Tagging zu finden. Im Gegensatz zur letzten Übung, in der ihr Satz-basierte Features entwickelt habt, geht es hier darum zusätzlich Wort-basierte Features zu suchen (z.B. Gross-oder kleinschreibung einzelner Wörter). Ähnlich wie in Übung 2 sollt ihr:
+In dieser Aufgabe geht es darum Features für das Sequence Tagging zu finden. Im Gegensatz zur letzten Übung, in der ihr Features entwickelt habt, geht es hier darum zusätzlich wort-und kontext-basierte Features zu suchen (z.B. Gross-oder kleinschreibung einzelner Wörter). Ähnlich wie in Übung 2 sollt ihr:
 \begin{itemize}
 \item Neue Features entwickeln.
-\item Modelle testen: Die Sklean library duchgehen und den Classifier finden, der am besten Funktioniert.
+\item Hyperparameter des CRFs tunen.
 \item Eure eigenen Ideen testen.
 \end{itemize}
-Die Daten kommen in der Form eines Trainingsets, eines Developmentsets (bzw. Validierungset) und eines Testsets. Verwendet zum Entwickeln und Tunen des Systems das Train und Devset. Evaluiert anschliessend euer System auf dem Testset. 
+Die Daten kommen in der Form eines Trainingsets, eines Developmentsets (bzw. Validierungset) und eines Testsets. Verwendet zum Entwickeln und Tunen des Systems das Train und Devset. Evaluiert anschliessend euer System auf dem Testset. \\
+Im File \texttt{TextBerg10Saetze.tsv} findet ihr einige Texte aus dem Text+Berg Korpus, lasst diese von eurem CRF Taggen und korrigiert den Output dann \emph{manuell} auf NER-Ebene LOC und PERS. 
 
 \section{Abgabe}
 \begin{itemize}
 \item Als Abgabe erwarten wir einen kurzen Bericht über euer System: welche Features habt ihr verwendet, welche Modelle, etc. Es soll nachvollziehrbar sein, dh jemand sollte in der Lage sein den Bericht zu lesen und euer System nachzubauen. Der Bericht sollte entweder in PDF oder in Word Format abgegeben werden. 
 \item Den Score den ihr auf dem Testset erreicht. Das bedeutet auch, dass ihr für verschiedene Modelle den Testset score reportet. Das ist insofern wichtig, damit ihr diesen Score mit dem auf dem Validierungset erreichten Score vergelicht.
 \item Den Code, damit wir bei Unklarheiten besser nachvollziehen können, was ihr gemacht habt.
+\item Die getaggten Text+Berg Sätze mit eurer Korrektur. Das Format sollte aus 3 Spalten bestehen, dem Wort, dem Tag und eurer Korrektur. 
 \item Die Abgabe erfolg über ein Zip File, wo die beiden oben genannten Datein enthalten sind. Stellt sicher, dass ihr in der Abgabe die Namen und Kürzel aller Teammitglieder reinschreibt.
 \end{itemize}
 \section{Feedback}
