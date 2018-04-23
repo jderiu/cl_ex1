@@ -1,0 +1,84 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[headings]{fullpage}
+
+\usepackage{ucs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{paralist}
+\usepackage[osf,sc]{mathpazo}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{}
+\pagestyle{fancy}
+\fancyhf{}
+
+\lstset{
+  language=Python,
+  basicstyle = \small\ttfamily,
+  keywordstyle = \color{blue},
+  commentstyle = \itshape\color{red},
+  stringstyle = \color{gray},
+%  otherkeywords = {>>>},
+  columns = flexible,
+  showstringspaces = false,
+  mathescape = false,
+  inputencoding = utf8x,
+  extendedchars = \true
+}
+
+\newcommand{\punkte}[1]{(\emph{#1 p})}
+
+\newcommand{\argmax}{\operatornamewithlimits{argmax}} 
+\newcommand{\argmin}{\operatornamewithlimits{argmin}} 
+
+\fancyhead[L]{\small Maschinelle Lernverfahren für die Sprachtechnologie (FS 18)\\Jan Deriu}
+\fancyhead[R]{\small 20. April 2018\\Institut für Computerlinguistik, UZH}
+
+\title{Übungen 3: Sequence Tagging with CRF}
+%\author{Aufgabenstellung: Simon \texttt{<simon.clematide@cl.uzh.ch>} }
+\date{\textbf{Abgabedatum} Sonntag, 6. Mai 2018, 14:00h \textsc{mez}
+}
+\begin{document}
+\maketitle
+
+
+\section{Named Entity Recognition auf deutschen Texten}
+In dieser Aufgabe werden wir einen Sequence Tagger bauen, der Named Entities in Texten erkennt. Eure Aufgabe ist es, gute Features zu finden um einen möglichst hohen F1 score zu erlangen. Die Daten wurden in der 2014 Edition vom GermEval\footnote{https://www.lt.informatik.tu-darmstadt.de/de/data/german-named-entity-recognition/} als Shared Task zur Verfügung gestellt. Auf der Website findet ihr alle Informationen zu den Daten.
+
+\subsection{Verstehen der Codevorlage}
+%\punkte{5}
+\begin{enumerate}
+\item In den Unterlagen findet ihr das Notebook \texttt{CRF with Sklearn.ipynb}. Dort findet ihr eine einfache Baseline auf der ihr aufbauen könnt. In der Baseline verwenden wir die \lstinline!sklearn-crfsuite!, studiert die Dokumentation \footnote{\url{https://sklearn-crfsuite.readthedocs.io/en/latest/}}. 
+\item Ihr dürft auch andere CRF libraries verwenden, falls euch das einfacher fällt. Ein Beispiel wäre Wapiti\footnote{https://wapiti.limsi.fr/}.
+\end{enumerate}
+
+\subsection{Aufgabe}
+In dieser Aufgabe geht es darum Features für das Sequence Tagging zu finden. Im Gegensatz zur letzten Übung, in der ihr Satz-basierte Features entwickelt habt, geht es hier darum zusätzlich Wort-basierte Features zu suchen (z.B. Gross-oder kleinschreibung einzelner Wörter). Ähnlich wie in Übung 2 sollt ihr:
+\begin{itemize}
+\item Neue Features entwickeln.
+\item Modelle testen: Die Sklean library duchgehen und den Classifier finden, der am besten Funktioniert.
+\item Eure eigenen Ideen testen.
+\end{itemize}
+Die Daten kommen in der Form eines Trainingsets, eines Developmentsets (bzw. Validierungset) und eines Testsets. Verwendet zum Entwickeln und Tunen des Systems das Train und Devset. Evaluiert anschliessend euer System auf dem Testset. 
+
+\section{Abgabe}
+\begin{itemize}
+\item Als Abgabe erwarten wir einen kurzen Bericht über euer System: welche Features habt ihr verwendet, welche Modelle, etc. Es soll nachvollziehrbar sein, dh jemand sollte in der Lage sein den Bericht zu lesen und euer System nachzubauen. Der Bericht sollte entweder in PDF oder in Word Format abgegeben werden. 
+\item Den Score den ihr auf dem Testset erreicht. Das bedeutet auch, dass ihr für verschiedene Modelle den Testset score reportet. Das ist insofern wichtig, damit ihr diesen Score mit dem auf dem Validierungset erreichten Score vergelicht.
+\item Den Code, damit wir bei Unklarheiten besser nachvollziehen können, was ihr gemacht habt.
+\item Die Abgabe erfolg über ein Zip File, wo die beiden oben genannten Datein enthalten sind. Stellt sicher, dass ihr in der Abgabe die Namen und Kürzel aller Teammitglieder reinschreibt.
+\end{itemize}
+\section{Feedback}
+Bitte melde kurz zurück, welche Aufgaben du hilfreich und welche du nicht hilfreich fandest, um dein Lernen zu unterstützen.
+
+\hfil Viel Spass und Erfolg beim Programmieren!
+\end{document}
